@@ -4,7 +4,7 @@ cd "C:\RestafariEnvironment"
 choco install wget -y
 wget -c -O atom_setup.exe --no-check-certificate "https://atom.io/download/windows"
 atom_setup.exe /quiet
-"%APPDATA%\..\Local\atom\bin\apm.cmd" install script
+"%APPDATA%\..\Local\atom\bin\apm.cmd" install script git-diff
 choco install git -y
 choco install python -y
 choco install easy.install -y

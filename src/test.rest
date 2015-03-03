@@ -1,0 +1,23 @@
+tests:
+  - id : ping
+    exec_before : []
+    exec_after : []
+    desc : "This is the ping"
+    format : "json"
+    path :  "/ping"
+    method : GET
+    data :
+      ping : true
+    response :
+      pong : int
+  - id : pong
+    exec_before : [ping, laws]
+    exec_after : []
+    desc : "This is the pong"
+    format : "json"
+    path :  "/ping"
+    method : GET
+    data :
+      ping : true
+    response :
+      pong : int
