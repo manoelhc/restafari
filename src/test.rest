@@ -13,8 +13,9 @@ tests:
       data:
         time :
           $and:
-             $type : Number
-             $gt : 1000
+             $or :
+               $type : Number
+               $gt : 10000
           $or :
              $lt : 2000
              $gt : 100

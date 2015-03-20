@@ -28,7 +28,7 @@ def loadStructure(data, expect, conf, namespace):
 
             elif checkOperator(key):
               msg = str(data[key]) + key + '{gray} (from API){/gray}' + ' ' + str(expect[key]) + ' (expect value)'
-              output.verifyNode(namespace, 'comparing key ' + key + ": " + msg)
+              output.verifyNode(namespace, 'Comparing ' + key + ": " + msg)
               res = compare(data[key], key, expect[key])
               if res == False:
                 conf['errors'].append( "Comparison failed: "  + msg)
@@ -46,13 +46,13 @@ def loadStructure(data, expect, conf, namespace):
               ops = []
               for item in expect[key].keys():
                 ops.append(getOperatorDesc(item) + ' ' + str(expect[key][item]))
-              strops = ' {cyan}' + getOperatorDesc(key) + '{/cyan} '
+              strops = ' {cyan}' + getOperatorDesc(key) + '{/cyan} be '
 
               msg = msg + ' {black}(From API){/black} ' + str(data) + ' {cyan}'
               msg = msg + 'value must be{/cyan} ' + strops.join(ops)
               msg = msg + '{black} (expect value){/black} '
 
-              output.verifyNode(namespace, 'Comparing key: ' + msg)
+              output.verifyNode(namespace, 'Comparing ' + msg)
               res = compare(data, key, expect[key])
               if res == False:
                 conf['errors'].append( "Comparison failed: "  + msg)
