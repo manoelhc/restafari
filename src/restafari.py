@@ -1,4 +1,6 @@
-import yaml, sys, os, io, urllib.parse, argparse, os.path, subprocess
+#!/usr/bin/python3.4
+
+import yaml, sys, os, io, argparse, os.path, subprocess
 
 from anyjson import serialize
 

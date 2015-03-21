@@ -1,16 +1,24 @@
 import http.client
 import output
 import json
+import sys
+import urllib.parse
 
 def getRequest(id, conf):
   db = conf['db']
+  headers = conf['headers']
   test = db[id]
   method = test['method'].upper()
   fullpath = conf['path'] + test['path']
   desc = test['desc']
   params = ''
   server = conf['domain'] + ':' + conf['port']
-  conn = http.client.HTTPConnection(server)
+  try:
+    conn = http.client.HTTPConnection(server)
+  finally:
+    conf['errors'].append("Server " + server + " not found!")
+    output.validationError(conf)
+    sys.exit(1)
 
   if method == 'GET':
     conn.request(method, fullpath)
