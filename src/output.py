@@ -25,9 +25,9 @@ def printLoadError(file, id, msg, errno=1):
   print(Color("-- {red}Error on loading{/red} {white}" + file + "::id[" + id + "]: " + msg + "{/white}"))
   sys.exit(errno)
 
-def printDepError(id_orig, id_missing, exec, errno=1):
+def printDepError(id_orig, id_missing, execx, errno=1):
   print(Color("-- {red}Dependecy Error:{/red} {white} from id::" +
-     id_orig + "; " + exec + "->{/white}{yellow}" + id_missing +
+     id_orig + "; " + execx + "->{/white}{yellow}" + id_missing +
      "{/yellow}: {white}id does not exist!{/white}"))
   sys.exit(errno)
 

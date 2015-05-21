@@ -4,7 +4,7 @@ def compareResult(req, expect, conf):
   db = conf['db']
   data = req['data']
   for key in expect.keys():
-    # checar valores, se tiver $, usar função compare
+    # checar valores, se tiver $, usar funcao compare
     if key == 'data':
         loadStructure(data, expect['data'], conf, [])
 

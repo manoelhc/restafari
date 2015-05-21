@@ -107,4 +107,5 @@ def main():
       print('--exec-success command returned: ' + str(res))
       sys.exit(1)
 
+#if _name_ == "_main_":
 main()
