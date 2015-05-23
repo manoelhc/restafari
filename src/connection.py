@@ -20,6 +20,7 @@ def getRequest(id, conf):
     output.validationError(conf)
     sys.exit(1)
 
+  print(fullpath)
   if method == 'GET':
     conn.request(method, fullpath)
   else:
