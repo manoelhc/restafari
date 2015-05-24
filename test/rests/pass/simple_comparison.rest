@@ -6,7 +6,7 @@ tests:
     exec_after : []
     desc : "This is the ping"
     format : "json"
-    path :  "/files/pnass/simple_comparison"
+    path :  "/files/pass/simple_comparison"
     method : GET
     expect:
       http: 200
