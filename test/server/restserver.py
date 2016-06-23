@@ -1,4 +1,4 @@
-#!/usr/bin/python3.4
+#!/usr/bin/env python3
 import os, os.path, cherrypy
 
 cherrypy.config.update({

@@ -1,4 +1,7 @@
 #!/bin/bash
+
+. $(dirname ${0})/../env.sh
+
 PWD=$(dirname $0)
 cd $PWD
 TEST_SERVER="server/restserver.py"
@@ -6,7 +9,7 @@ SUCCESS="/bin/bash ${PWD}/scripts/runtest.sh SUCCESS"
 WARN="/bin/bash ${PWD}/scripts/runtest.sh WARNING"
 FAILURE="/bin/bash ${PWD}/scripts/runtest.sh FAILURE"
 
-$SUCCESS "Checking Python 3 Dependencies" sudo pip3 install -r ../requirements.pip
+#$SUCCESS "Checking Python 3 Dependencies" sudo pip3 install -r ../requirements.pip
 $WARN "Checking code standards" /bin/bash ./standards.sh
 
 

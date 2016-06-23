@@ -1,4 +1,4 @@
-#!/usr/bin/python3.4
+#!/usr/bin/env python3
 
 import yaml, sys, os, io, argparse, os.path, subprocess
 
