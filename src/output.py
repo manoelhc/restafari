@@ -46,8 +46,11 @@ def validationOk(conf):
 def verifyNode(namespace, msg):
       print(Color("{white} [TEST] " + str(namespace) + "{/white} " + msg))
 
-def invalidOperator(op, msg):
-      print(Color("{yellow} [INVL] invalid operator " + op + "{/yellow} " + msg))
+def invalidOperator(op, msg,conf):
+      conf['errors'].append(Color("{yellow} [INVL] invalid operator {red}" + op + "{/red}{/yellow}: " + msg))
+
+def invalidExpectedDataKey(key, conf):
+      conf['errors'].append(Color("invalid expected data key {yellow}" + key + "{/yellow}. They is no property with this name in server's response."))
 
 def debug(msg):
       print(Color("{yellow} [DEBUG] {/yellow} " + msg))

@@ -23,10 +23,10 @@ def loadStructure(data, expect, conf, namespace):
     if type(expect) == dict and type(data) == dict:
         output.debug("Recursive Loading")
         for key in expect:
-            if key[0] != '$':
-              loadStructure(data[key], expect[key], conf, namespace + [key]);
+            if key[0] != '$' and key in data:
+              return loadStructure(data[key], expect[key], conf, namespace + [key])
 
-            elif checkOperator(key):
+            elif checkOperator(key) and key in data:
               msg = str(data[key]) + key + '{gray} (from API){/gray}' + ' ' + str(expect[key]) + ' (expect value)'
               output.verifyNode(namespace, 'Comparing ' + key + ": " + msg)
               res = compare(data[key], key, expect[key])
@@ -35,7 +35,8 @@ def loadStructure(data, expect, conf, namespace):
               result = res
 
             else:
-              invalidOperator(key)
+              output.invalidExpectedDataKey(key, conf)
+              return False
     elif type(expect) == dict and type(data) != dict:
         output.debug("Checking rules directly")
         for key in expect:
@@ -44,9 +45,13 @@ def loadStructure(data, expect, conf, namespace):
               msg = msg + '{magenta}' + str(expect[key]) + '{/magenta}) ->'
 
               ops = []
-              for item in expect[key].keys():
-                ops.append(getOperatorDesc(item) + ' ' + str(expect[key][item]))
-              strops = ' {cyan}' + getOperatorDesc(key) + '{/cyan} be '
+              if expect[key] == dict:
+                for item in expect[key].keys():
+                  ops.append(getOperatorDesc(item) + ' ' + str(expect[key][item]))
+                strops = ' {cyan}' + getOperatorDesc(key) + '{/cyan} be '
+              else:
+                ops.append(str(expect[key]))
+                strops = ' {cyan}' + getOperatorDesc(key) + '{/cyan} be '
 
               msg = msg + ' {black}(From API){/black} ' + str(data) + ' {cyan}'
               msg = msg + 'value must be{/cyan} ' + strops.join(ops)
@@ -58,7 +63,8 @@ def loadStructure(data, expect, conf, namespace):
                 conf['errors'].append( "Comparison failed: "  + msg)
               result = res
             else:
-              invalidOperator(key)
+              output.invalidOperator(key, "the key was not found on server's response", conf)
+              return False
     elif type(expect) != dict and type(data) != list:
         output.debug("Straight comparison: " + str(expect) + ' == ' + str(data))
         output.verifyNode(namespace, 'test')
@@ -68,8 +74,6 @@ def loadStructure(data, expect, conf, namespace):
       output.debug("Straight comparison: " + str(expect) + ' == ' + str(data))
       output.verifyNode(namespace, 'test')
       result = (expect == data)
-
-
     return result
 
 def checkOperator(op):

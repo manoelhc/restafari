@@ -44,8 +44,16 @@ def checkDeps():
   db = conf['db']
   for test in db:
     if test[0] != "#":
-      bef = db[test]['exec_before']
-      aft = db[test]['exec_after']
+      if not 'expect' in db[test]:
+        output.printDepError(db[test]['id'], '', 'expect')
+      if 'exec_before' in db[test]:
+        bef = db[test]['exec_before']
+      else:
+        bef = []
+      if 'exec_after' in db[test]:
+         aft = db[test]['exec_after']
+      else:
+         aft = []
       if len(bef) > 0:
         for id in bef:
           if not id in db:

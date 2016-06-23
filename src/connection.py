@@ -20,19 +20,17 @@ def getRequest(id, conf):
     output.validationError(conf)
     sys.exit(1)
 
-  print(fullpath)
   if method == 'GET':
     conn.request(method, fullpath)
   else:
     params = urllib.parse.urlencode(test['data'])
-    conn.request(method, fullpath, params, headers)
-  
+    res = conn.request(method, fullpath, params, headers)
   res = conn.getresponse()
+
   data = res.read().decode("utf-8").strip()
   if len(data) > 60:
     data = data[0:60] + '...'
-
-  output.printRequest(method, conf['domain'], conf['path'], params, desc, data, res.status)
+  output.printRequest(method, conf['domain'], fullpath, params, desc, data, res.status)
 
   result = {}
   result['status'] = res.status
