@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import yaml, sys, os, io, argparse, os.path, subprocess
+import yaml, sys, os, io, argparse, os.path, subprocess, json
 
 from anyjson import serialize
 
@@ -82,6 +82,7 @@ def main():
   parser.add_argument('files', nargs="*", metavar='N', help='The test file(s) to be used')
 
   # TODO
+  #parser.add_argument('--format', '-f', dest='format', help='Set the test file format: YAML (default) or JSON')
   #parser.add_argument('--directory', '-d', dest='directory', help='Load all test files (file.rest) from a directory, skipping files which initiates with .')
   #parser.add_argument('--exec-failure', '-F', dest='exec_failure', help='Execute a command-line when some test fails.')
   #parser.add_argument('--restful', '-r', dest='restful', help='Execute tests with REST-compliant mode on')
