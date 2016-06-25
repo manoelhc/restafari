@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-import os, os.path, cherrypy
+import os, os.path, cherrypy, sys
+
+
+port = int(sys.argv[1].strip())
 
 cherrypy.config.update({
   'server.socket_host': '127.0.0.1',
-  'server.socket_port': 8080,
+  'server.socket_port': port,
 })
 
 class HelloWorld(object):

@@ -8,7 +8,6 @@ python:
   - "nightly" # currently points to 3.6-dev
 # command to install dependencies
 install:
-  - "pip install -r requirements.pip"
   - "./build.sh"
 
 # command to run tests
