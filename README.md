@@ -1,4 +1,4 @@
-# restafari
+# restafari [![Build Status](https://travis-ci.org/manoelhc/restafari.svg?branch=master)](https://travis-ci.org/manoelhc/restafari)
 Restafari is a simple REST test tool.
 
 ## Features
