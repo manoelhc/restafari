@@ -23,7 +23,7 @@ _HOME_DIR=${HOME}
 
 PYTHON_VERSION=3.5.1
 
-if [[ ! -f ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin/python3 ]]; then
+if [[ ! -f ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin/python3 ]] || [[ "$(env python3 2> /dev/null;echo $?)" -gt 0 ]]; then
   mkdir ${_HOME_DIR}/.tmp
   cd ${_HOME_DIR}/.tmp
   wget -c "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz" #|| echo "Error on download Python!" && exit 1
@@ -35,7 +35,7 @@ if [[ ! -f ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin/python3 ]]; then
   cd ${_SCRIPT_DIR}/..
 
   echo "" >> ${_SCRIPT_DIR}/../env.sh
-  echo "# Added by install_full_dev.sh on $(date)" >> ${_SCRIPT_DIR}/../env.sh
+  echo "# Added by $(basename ${0}) on $(date)" >> ${_SCRIPT_DIR}/../env.sh
   echo "# Your local Python installation is in ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin directory." >> ${_SCRIPT_DIR}/../env.sh
   echo "export PATH=\"${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin:\${ORIG_PATH}\"" >> ${_SCRIPT_DIR}/../env.sh
 fi
