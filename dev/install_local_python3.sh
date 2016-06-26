@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "
+[[ ${LOCAL_CI} != "1" ]] && echo "
 This script creates a local python3 installation, in your home directory. Please run this script has a regular user.
 
 Please make sure that gcc, make, wget and its dependencies are correctly installed. To install, run:
@@ -17,34 +17,61 @@ Tested on Ubuntu 15.10 and Redhat 6.7.
 
 [[ ${USER} = 'root' ]] && echo "Please run it as your user (the user you use to code)!" && exit
 
-cd $(dirname ${0})
-_SCRIPT_DIR="$(pwd)"
+cd $(dirname ${0})/..
+_RESTAFARI_HOME="$(pwd)"
 _HOME_DIR=${HOME}
 
-PYTHON_VERSION=3.5.1
+_ERROR_INST_MSG="Installation aborted. Fix all dependencies to continue!"
+echo "Restafari home: ${_RESTAFARI_HOME}"
 
-if [[ ! -f ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin/python3 ]] || [[ "$(env python3 2> /dev/null;echo $?)" -gt 0 ]]; then
-  mkdir ${_HOME_DIR}/.tmp
+[[ -z ${PYTHON_VERSION} ]] && PYTHON_VERSION=3.5.1
+
+mkdir -p ${_HOME_DIR}/.tmp 2> /dev/null
+
+if [[ ! -f ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin/python3 ]]; then
+
+  echo " ********************************************************************"
+  echo " *** FIRST RUN ON PYTHON ${PYTHON_VERSION}, IT MAY TAKE MORE TIME THAN USUAL ***"
+  echo " ********************************************************************"
+  echo
+  echo "Installing Python ${PYTHON_VERSION} on ${HOME}/.apps/python-${PYTHON_VERSION}"
   cd ${_HOME_DIR}/.tmp
-  wget -c "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz" #|| echo "Error on download Python!" && exit 1
-  tar xf "Python-${PYTHON_VERSION}.tar.xz" #|| echo "Error on untar the python.tar.xz file!" && exit 1
+  wget -c "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz"
+  tar xf "Python-${PYTHON_VERSION}.tar.xz"
   cd "Python-${PYTHON_VERSION}"
-  ./configure --prefix=${_HOME_DIR}/.apps/python-${PYTHON_VERSION} #|| echo "Error on configuring python for compiling" && exit 1
-  make  #|| echo "Error on runnning make command!" && exit 1
-  make install  #|| echo "Error on running make install command" && exit 1
-  cd ${_SCRIPT_DIR}/..
-
-  echo "" >> ${_SCRIPT_DIR}/../env.sh
-  echo "# Added by $(basename ${0}) on $(date)" >> ${_SCRIPT_DIR}/../env.sh
-  echo "# Your local Python installation is in ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin directory." >> ${_SCRIPT_DIR}/../env.sh
-  echo "export PATH=\"${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin:\${ORIG_PATH}\"" >> ${_SCRIPT_DIR}/../env.sh
+  PYTHONHOME=${_HOME_DIR}/.apps/python-${PYTHON_VERSION}
+  CFLAGS="-w" ./configure --prefix=${PYTHONHOME} --exec-prefix=${PYTHONHOME} > /dev/null; [[ ${?} -gt 0 ]] && echo ${_ERROR_INST_MSG} && exit 1
+  make > /dev/null; [[ ${?} -gt 0 ]] && echo ${_ERROR_INST_MSG} && exit 1
+  make install > /dev/null; [[ ${?} -gt 0 ]] && echo ${_ERROR_INST_MSG} && exit 1
 fi
 
-. ${_SCRIPT_DIR}/../env.sh
+echo "Python ${PYTHON_VERSION} installed on ${HOME}/.apps/python-${PYTHON_VERSION}"
 
-python3 --version
-wget -c https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
-python3 /tmp/get-pip.py
+if [[ ${LOCAL_CI} != "1" ]] && [[ "$(env python)" != "${HOME}/.apps/python-${PYTHON_VERSION}/bin/python" ]]; then
+  echo "Add the new Python installation in env.sh"
+  cd ${_RESTAFARI_HOME}
+  echo "" >> ${_RESTAFARI_HOME}/env.sh
+  echo "# Added by $(basename ${0}) on $(date)" >> ${_RESTAFARI_HOME}/env.sh
+  echo "# Your local Python installation is in ${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin directory." >> ${_RESTAFARI_HOME}/env.sh
+  echo "export PATH=\"${_HOME_DIR}/.apps/python-${PYTHON_VERSION}/bin:\${ORIG_PATH}\"" >> ${_RESTAFARI_HOME}/env.sh
+fi
 
-pip3 install --upgrade pip  #|| echo "Error on installing python3 dependency!" && exit 1
-pip3 install -r ${_SCRIPT_DIR}/../requirements.pip
+if [[ ${LOCAL_CI} != "1" ]]; then
+  . ${_RESTAFARI_HOME}/env.sh
+else
+  export PATH="${HOME}/.apps/python-${PYTHON_VERSION}/bin:${PATH}"
+fi
+
+echo "python3: $(which python3)"
+
+if [[ ! -f "${HOME}/.apps/python-${PYTHON_VERSION}/bin/pip" ]]; then
+  echo "Installing PIP on ${HOME}/.apps/python-${PYTHON_VERSION}/bin"
+  wget -c https://bootstrap.pypa.io/get-pip.py -O ${HOME}/.tmp/get-pip.py
+  python3 ${_HOME_DIR}/.tmp/get-pip.py > /dev/null
+  pip3 install --upgrade pip > /dev/null
+fi
+
+[[ ! -f "$(which python3)" ]] && echo "Python3 is not installed properly" && exit 1
+
+echo "PIP3 version: $(pip --version)"
+
