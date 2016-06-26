@@ -42,5 +42,9 @@ fi
 
 . ${_SCRIPT_DIR}/../env.sh
 
+python3 --version
+wget -c https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
+python3 /tmp/get-pip.py
+
 pip3 install --upgrade pip  #|| echo "Error on installing python3 dependency!" && exit 1
 pip3 install -r ${_SCRIPT_DIR}/../requirements.pip
