@@ -5,3 +5,4 @@ cherrypy
 pep8
 codeclimate-test-reporter
 coverage
+python-coveralls

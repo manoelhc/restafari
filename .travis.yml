@@ -11,6 +11,8 @@ install:
 # command to run tests
 script:
   - "ci/test.sh"
-  - "codeclimate-test-reporter"
+
 after_success:
+  - "codeclimate-test-reporter"
   - bash <(curl -s https://codecov.io/bash)
+  - coveralls
