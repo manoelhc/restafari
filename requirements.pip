@@ -3,3 +3,5 @@ PyYAML
 ColorClass
 cherrypy
 pep8
+codeclimate-test-reporter
+coverage
