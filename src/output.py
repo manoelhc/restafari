@@ -67,7 +67,7 @@ def invalidOperator(op, msg, conf):
 
 def invalidExpectedDataKey(key, conf):
     conf['errors'].append(Color(
-        "invalid expected data key {yellow}" + key + "{/yellow}. "+
+        "invalid expected data key {yellow}" + key + "{/yellow}. " +
         "They is no property with this name in server's response."))
 
 
