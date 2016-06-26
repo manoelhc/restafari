@@ -1,4 +1,4 @@
-# restafari [![Build Status](https://travis-ci.org/manoelhc/restafari.svg?branch=master)](https://travis-ci.org/manoelhc/restafari)
+# restafari [![Build Status](https://travis-ci.org/manoelhc/restafari.svg?branch=master)](https://travis-ci.org/manoelhc/restafari) [![Python Support](https://img.shields.io/badge/restafari-3.3%2C%203.4%2C%203.5-yellow.svg)
 Restafari is a simple REST test tool.
 
 ## Features
