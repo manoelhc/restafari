@@ -6,10 +6,11 @@ python:
   - "nightly" # currently points to 3.6-dev
 # command to install dependencies
 install:
-  - "./build.sh"
+  - "ci/build.sh"
 
 # command to run tests
 script:
+  - "ci/test.sh"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
