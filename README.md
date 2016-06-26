@@ -1,7 +1,8 @@
 # restafari 
 
 [![Build Status](https://travis-ci.org/manoelhc/restafari.svg?branch=master)](https://travis-ci.org/manoelhc/restafari) [![Python Support](https://img.shields.io/badge/restafari-3.3%2C%203.4%2C%203.5-green.svg)]() [![Coverage Status](https://coveralls.io/repos/github/manoelhc/restafari/badge.svg?branch=master)](https://coveralls.io/github/manoelhc/restafari?branch=master) [![Issue Count](https://codeclimate.com/github/manoelhc/restafari/badges/issue_count.svg)](https://codeclimate.com/github/manoelhc/restafari) [![Code Climate](https://codeclimate.com/github/manoelhc/restafari/badges/gpa.svg)](https://codeclimate.com/github/manoelhc/restafari)
-[![Test Coverage](https://codeclimate.com/github/manoelhc/restafari/badges/coverage.svg)](https://codeclimate.com/github/manoelhc/restafari/coverage)
+[![Test Coverage](https://codeclimate.com/github/manoelhc/restafari/badges/coverage.svg)](https://codeclimate.com/github/manoelhc/restafari/coverage)[![codecov](https://codecov.io/gh/manoelhc/restafari/branch/master/graph/badge.svg)](https://codecov.io/gh/manoelhc/restafari)
+
 
 Restafari is a simple REST test tool.
 
