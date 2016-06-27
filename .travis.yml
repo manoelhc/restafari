@@ -10,6 +10,7 @@ install:
 
 # command to run tests
 script:
+  - "pip install -r requirements.pip"
   - "ci/local_install_test.sh"
   - "ci/local_rest_test.sh"
 
