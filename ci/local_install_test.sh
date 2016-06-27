@@ -8,8 +8,4 @@ cd build
 
 python3 setup.py install
 
-echo "Python3 binary: $(which python3)"
-echo "PATH: ${PATH}"
-echo "Restafari binary: $(which restafari.py)"
-echo "PYTHONHOME=${PYTHONHOME}"
-echo "PYTHONPATH=${PYTHONPATH}"
+bash ${_RESTAFARI_HOME}/ci/show_python_info.sh

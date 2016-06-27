@@ -27,3 +27,5 @@ elif [[  $errcode -eq 0 ]] && [[ "${TYPE:0:1}" = 'W' ]]; then
 else
   echo -e "${BADCOLOR}[${BAD}]${RCol} ${BADOUTPUT}"
 fi
+
+exit ${errcode}
