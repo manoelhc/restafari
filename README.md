@@ -102,5 +102,5 @@ optional arguments:
 After creating the test/validation yaml file:
 
 ```bash
-$ command line example:
+  $ restafari --port <port> --hostname <host> <file>
 ```
