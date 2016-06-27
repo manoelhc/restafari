@@ -47,7 +47,7 @@ fi
 
 echo "Python ${PYTHON_VERSION} installed on ${HOME}/.apps/python-${PYTHON_VERSION}"
 
-if [[ ${LOCAL_CI} != "1" ]] && [[ "$(env python)" != "${HOME}/.apps/python-${PYTHON_VERSION}/bin/python" ]]; then
+if [[ ${LOCAL_CI} != "1" ]] && [[ "$(env python3)" != "${HOME}/.apps/python-${PYTHON_VERSION}/bin/python3" ]]; then
   echo "Add the new Python installation in env.sh"
   cd ${_RESTAFARI_HOME}
   echo "" >> ${_RESTAFARI_HOME}/env.sh
@@ -64,14 +64,14 @@ fi
 
 echo "python3: $(which python3)"
 
-if [[ ! -f "${HOME}/.apps/python-${PYTHON_VERSION}/bin/pip" ]]; then
+if [[ ! -f "${HOME}/.apps/python-${PYTHON_VERSION}/bin/pip3" ]]; then
   echo "Installing PIP on ${HOME}/.apps/python-${PYTHON_VERSION}/bin"
   wget -c https://bootstrap.pypa.io/get-pip.py -O ${HOME}/.tmp/get-pip.py
   python3 ${_HOME_DIR}/.tmp/get-pip.py > /dev/null
-  pip3 install --upgrade pip > /dev/null
 fi
+pip3 install --upgrade pip > /dev/null
 
 [[ ! -f "$(which python3)" ]] && echo "Python3 is not installed properly" && exit 1
 
-echo "PIP3 version: $(pip --version)"
+echo "PIP3 version: $(pip3 --version)"
 

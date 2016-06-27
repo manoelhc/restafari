@@ -10,7 +10,8 @@ install:
 
 # command to run tests
 script:
-  - "ci/test.sh"
+  - "ci/local_install_test.sh"
+  - "ci/local_rest_test.sh"
 
 after_success:
   - "codeclimate-test-reporter"

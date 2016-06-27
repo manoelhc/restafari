@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Test
 
 import yaml
 import sys
@@ -11,9 +12,9 @@ import json
 
 from anyjson import serialize
 
-import output
-import comparer
-import connection
+from restafari import comparer
+from restafari import connection
+from restafari import output
 
 conf = {
     'domain': '127.0.0.1',
@@ -144,5 +145,5 @@ def main():
             print('--exec-success command returned: ' + str(res))
             sys.exit(1)
 
-# if _name_ == "_main_":
-main()
+if __name__ == "__main__":
+    main()

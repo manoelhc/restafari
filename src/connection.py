@@ -1,4 +1,4 @@
-import output
+from restafari import output
 import json
 import sys
 import urllib.parse
