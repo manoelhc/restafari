@@ -12,7 +12,7 @@ sleep 5
 cd ${_RESTAFARI_HOME}
 
 for f in $(find test/rests/pass -name '*.rest'); do
-  $WARN "Running $f" coverage run restafari --port ${TEST_SERVER_PORT} --hostname localhost $f
+  $FAILURE "Running $f" coverage run restafari.py --port ${TEST_SERVER_PORT} --hostname localhost $f
 done
 
 kill $(ps aux | grep -F ${TEST_SERVER} | grep -v grep | awk '{print $2}') 2> /dev/null
