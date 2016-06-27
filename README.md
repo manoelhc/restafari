@@ -4,10 +4,10 @@
 [![Test Coverage](https://codeclimate.com/github/manoelhc/restafari/badges/coverage.svg)](https://codeclimate.com/github/manoelhc/restafari/coverage) [![codecov](https://codecov.io/gh/manoelhc/restafari/branch/master/graph/badge.svg)](https://codecov.io/gh/manoelhc/restafari)
 
 
-Restafari is a simple REST test tool.
+Restafari is a simple REST test tool. It provides a simple framework to describe and run tests and validations around your REST api.
 
 ## Features
-Basically the features are:
+
  * Type check
  * Conditional validation
  * Test combination and dependencies, like: execute login test before and finally execute logout test.
@@ -24,7 +24,7 @@ You can create simple requests validation with some conditional features, like:
     executable : true
     exec_before : []
     exec_after : []
-    desc : "This is the ping"
+    desc : "'ping' validation test"
     format : "json"
     path :  "/files/simple_comparison"
     method : GET
@@ -42,11 +42,11 @@ You can create simple requests validation with some conditional features, like:
 
 ```
 
-Some values are default and another way to write this test is:
+Some attributes may have default values, so we can re-write the previous example:
 
 ```yaml
   - id : ping
-    desc : "This is the ping"
+    desc : "'ping' validation tes"
     path :  "/files/simple_comparison"
     expect:
       data:
@@ -94,4 +94,12 @@ optional arguments:
   --debug DEBUG, -D DEBUG
                         Enable debug mode
 
+```
+
+## Usage Example
+
+After creating the test/validation yaml file:
+
+```bash
+$ command line example:
 ```
