@@ -12,6 +12,7 @@ Restafari is a simple REST test tool. It provides a simple framework to describe
  * Conditional validation
  * Test combination and dependencies, like: execute login test before and finally execute logout test.
  * HTTP status check
+ * More to come...
 
 
 ## Test example
