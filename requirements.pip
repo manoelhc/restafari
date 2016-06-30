@@ -6,3 +6,5 @@ pep8
 codeclimate-test-reporter
 coverage
 python-coveralls
+twine
+setuptools

@@ -9,12 +9,11 @@ import argparse
 import os.path
 import subprocess
 import json
+import pkg_resources
 
 from anyjson import serialize
 
-from restafari import comparer
-from restafari import connection
-from restafari import output
+from . import comparer, connection, output
 
 conf = {
     'domain': '127.0.0.1',
@@ -84,6 +83,7 @@ def runTests():
 
 def main():
     global conf
+
     parser = argparse.ArgumentParser(
         description='Restafari REST API tester')
     parser.add_argument('--hostname', '-s',
@@ -105,6 +105,9 @@ def main():
     parser.add_argument('files', nargs="*", metavar='N',
                         help='The test file(s) to be used')
 
+    parser.add_argument('--version', '-v', action='store_true',
+                        help='Show version number')
+
     # TODO
     # parser.add_argument('--format', '-f', dest='format',
     #   help='Set the test file format: YAML (default) or JSON')
@@ -117,6 +120,13 @@ def main():
     #   help='Execute tests with REST-compliant mode on')
 
     args = parser.parse_args()
+
+    if args.version:
+        show_version()
+
+    if len(args.files) == 0:
+        parser.print_help()
+        sys.exit(1)
 
     if args.hostname:
         conf['domain'] = args.hostname
@@ -144,6 +154,12 @@ def main():
         if res > 0:
             print('--exec-success command returned: ' + str(res))
             sys.exit(1)
+
+
+def show_version():
+    print('restafari ' + pkg_resources.get_distribution("restafari").version)
+    sys.exit(0)
+
 
 if __name__ == "__main__":
     main()

@@ -21,5 +21,3 @@ cp LICENSE build/LICENSE.txt
 cp README.md build/
 
 $WARN "Checking code standards" /bin/bash ${_RESTAFARI_HOME}/test/standards.sh
-
-chmod +x build/restafari/restafari.py

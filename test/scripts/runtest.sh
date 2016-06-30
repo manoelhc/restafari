@@ -1,7 +1,8 @@
 #!/bin/bash
 
-OUTPUT="$(${*:3} 2>/dev/null 1> /tmp/output)"
-errcode="${?}"
+#OUTPUT="$(${*:3} 2>/dev/null 1> /tmp/output)"
+OUTPUT="$(${*:3} 1> /tmp/output)"
+exitcode="${?}"
 OUTPUT="$(cat /tmp/output | sed -e 's/^/>> /')"
 
 Red='\e[0;31m' 
@@ -18,14 +19,16 @@ if [[ "${TYPE:0:1}" = 'W' ]]; then
   BADCOLOR="${Yel}"
 fi
 
-BADOUTPUT="${2}: Error code: ${errcode}\n--BEGIN ${BAD} OUTPUT--\n${OUTPUT}\n--END ${BAD} OUTPUT--\n"
+BADOUTPUT="${2}: Error code: ${exitcode}\n--BEGIN ${BAD} OUTPUT--\n${OUTPUT}\n--END ${BAD} OUTPUT--\n"
 
-if [[  $errcode -eq 0 ]] && [[ "${TYPE:0:1}" = 'S' ]] ; then
+if [[  ${exitcode} -eq 0 ]] && [[ "${TYPE:0:1}" = 'S' ]] ; then
   echo -e "${Gre}[SUCCESS]${RCol} ${2}"
-elif [[  $errcode -eq 0 ]] && [[ "${TYPE:0:1}" = 'W' ]]; then
+elif [[  ${exitcode} -eq 0 ]] && [[ "${TYPE:0:1}" = 'W' ]]; then
   echo -e "${Gre}[SUCCESS]${RCol} ${2}"
-else
+elif [[  ${exitcode} -gt 0 ]]; then
   echo -e "${BADCOLOR}[${BAD}]${RCol} ${BADOUTPUT}"
+else
+  echo -e "${Gre}[SUCCESS]${RCol} ${2}"
 fi
 
-exit ${errcode}
+exit ${exitcode}

@@ -6,6 +6,12 @@ cd ${_RESTAFARI_HOME}
 
 cd build
 
+pip install -e .
+
 python3 setup.py install
 
-bash ${_RESTAFARI_HOME}/ci/show_python_info.sh; [[ $? -gt 0 ]] && exit 1
+status=$?
+
+bash ${_RESTAFARI_HOME}/ci/show_python_info.sh
+
+exit ${status}

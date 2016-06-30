@@ -1,4 +1,4 @@
-from restafari import output
+from . import output
 
 
 def compareResult(req, expect, conf):

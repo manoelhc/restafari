@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: use virtualenv instead
+
 [[ ${LOCAL_CI} != "1" ]] && echo "
 This script creates a local python3 installation, in your home directory. Please run this script has a regular user.
 
