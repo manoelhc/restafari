@@ -20,6 +20,5 @@ while read ver; do
   PATH="${PATH}" ./build.sh; [[ $? -gt 0 ]] && exit 1
   PATH="${PATH}" ./local_install_test.sh; [[ $? -gt 0 ]] && exit 1
   PATH="${PATH}" ./local_rest_test.sh; [[ $? -gt 0 ]] && exit 1
-
 done < python-versions
-
+PATH="${PATH}" ./register_pypi_test.sh; [[ $? -gt 0 ]] && exit 1

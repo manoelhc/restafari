@@ -2,16 +2,14 @@
 from distutils.core import setup
 f = open('VERSION', 'r')
 
-version = ''
-for ver in f:
-    version = ver
+version = f.read().strip()
 
 
 setup(
     name = 'restafari',
     packages = ['restafari'], # this must be the same as the name above
-    version = version + 'a',
     license = 'MIT',
+    version = version,
     description = 'Restafari is a simple REST test tool.',
     author = 'Manoel Carvalho',
     author_email = 'manoelhc@gmail.com',

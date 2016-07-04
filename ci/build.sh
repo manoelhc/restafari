@@ -6,7 +6,7 @@ cd ${_RESTAFARI_HOME}
 
 # pip3 uninstall -y restafari
 
-[[ -d build/restafari ]] && rm -rf build/restafari
+[[ -d build/restafari ]] && rm -rf build
 
 mkdir -p build/restafari
 cp -r src/* build/restafari
