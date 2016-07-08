@@ -1,4 +1,5 @@
 from . import output
+import json
 
 
 def compareResult(req, expect, conf):
@@ -8,7 +9,10 @@ def compareResult(req, expect, conf):
         # check value, if it has $, we are dealing with a compare
         # operator and need to use a function
         if key == 'data':
-            loadStructure(data, expect['data'], conf, [])
+           for entity in expect['data']:
+              ent = {}
+              ent[entity] = expect['data'][entity]
+              loadStructure(data, ent, conf, [])
 
         elif key == 'http':
             if req['status'] != expect['http']:
@@ -49,7 +53,7 @@ def loadStructure(data, expect, conf, namespace):
         output.debug("Checking rules directly")
         for key in expect:
             if checkOperator(key):
-                msg = '({magenta}' + str(data) + '{/magenta} {green}' + \
+                msg = '({magenta}' + "Value" + '{/magenta} {green}' + \
                       key + '{/green} ' + '{magenta}' + \
                       str(expect[key]) + '{/magenta}) ->'
 
@@ -63,14 +67,16 @@ def loadStructure(data, expect, conf, namespace):
                     ops.append(str(expect[key]))
                     strops = ' {cyan}' + getOperatorDesc(key) + '{/cyan} be '
 
-                    msg = msg + ' {black}(From API){/black} ' + str(data) + \
-                        ' {cyan}' + 'value must be{/cyan} ' + \
+                    msg = msg + ' {black}(From API){/black} ' + \
+                        ' {cyan}' + 'the value must be{/cyan} ' + \
                         strops.join(ops) + '{black} (expect value){/black} '
 
                     output.verifyNode(namespace, 'Comparing ' + msg)
                     res = compare(data, key, expect[key])
                     if res is False:
-                        conf['errors'].append("Comparison failed: " + msg)
+                        conf['errors'].append("Comparison failed: [" +
+                                              json.dumps(namespace) +
+                                              "] " + msg)
                     result = res
             else:
                 output.invalidOperator(key, "the key was not found on " +
