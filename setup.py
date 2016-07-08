@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 from distutils.core import setup
-f = open('VERSION', 'r')
 
-version = f.read().strip()
-
+version = "{{RESTAFARI_VERSION}}"
 
 setup(
     name = 'restafari',
