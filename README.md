@@ -14,93 +14,101 @@ Restafari is a simple REST test tool. It provides a simple framework to describe
  * HTTP status check
  * More to come...
 
+## Getting Started (just 2 minutes)
 
-## Test example
-
-You can create simple requests validation with some conditional features, like:
-
-```yaml
-  - id : ping
-    weight : 20
-    executable : true
-    exec_before : []
-    exec_after : []
-    desc : "'ping' validation test"
-    format : "json"
-    path :  "/files/simple_comparison"
-    method : GET
-    expect:
-      http: 200
-      data:
-        time :
-          $and:
-             $or :
-               $type : Number
-               $gt : 10000
-          $or :
-             $lt : 2000
-             $gt : 100
-
+To get yourself into Restafari, this is a 2-minutes getting started. First you need a machine with Python3 and PIP3 properly installed. You have to install Restafari as root user. 
+ 
+```bash
+ # On Ubuntu
+ sudo su - root
+ 
+ # On RHEL/CentOS
+ su - root
+```
+ 
+Now, let's install Restafari from PYPI (the Python Package Index):
+  
+```bash
+pip3 install restafari
 ```
 
-Some attributes may have default values, so we can re-write the previous example:
-
-```yaml
-  - id : ping
-    desc : "'ping' validation tes"
-    path :  "/files/simple_comparison"
-    expect:
-      data:
-        time :
-          $and:
-             $or :
-               $type : Number
-               $gt : 10000
-          $or :
-             $lt : 2000
-             $gt : 100
-
-```
-
-
-## Syntax
-
-Restafary sintax is pretty simple:
+After that, check if restafari was properly installed. Using your regular user, run:
 
 ```bash
-usage: restafari.py [-h] [--hostname HOSTNAME] [--protocol PROTOCOL]
-                    [--port PORT] [--exec-before EXEC_BEFORE]
-                    [--exec-success EXEC_SUCCESS] [--debug DEBUG]
-                    [N [N ...]]
-
-Restafari REST API tester
-
-positional arguments:
-  N                     The test file(s) to be used
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --hostname HOSTNAME, -s HOSTNAME
-                        The hostname of the web service
-  --protocol PROTOCOL, -p PROTOCOL
-                        The protocol which will be used (HTTP/HTTPS)
-  --port PORT, -P PORT  The port number
-  --exec-before EXEC_BEFORE, -B EXEC_BEFORE
-                        Execute a single command-line/script before starting
-                        the REST test. It's useful to prepare the environment
-                        for the tests.
-  --exec-success EXEC_SUCCESS, -S EXEC_SUCCESS
-                        Execute a single command-line/script when all tests
-                        were done successfully.
-  --debug DEBUG, -D DEBUG
-                        Enable debug mode
-
+restafari --version
 ```
 
-## Usage Example
-
-After creating the test/validation yaml file:
+You should see something like:
 
 ```bash
-  $ restafari --port <port> --hostname <host> <file>
+restafari 0.1.4
 ```
+
+If your installation failed, try to install again. If it does not work, please open an ticket telling what happened. Restafari is a new product, not stable and it could happen anytime. 
+
+All right, so if you Restafari installation is done, let's write our first test. For this test we will take a public API from http://jsonplaceholder.typicode.com/:
+The service is http://jsonplaceholder.typicode.com/posts/1 which returns something similar to this:
+ 
+```json
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+```
+
+
+Create a file called simple-test.rest and add this content:
+```yaml
+tests:
+- id: check-post
+  path: /posts/1
+  expect:
+    http: 200
+    data:
+      userId:
+        $type: Number
+```
+
+Easy, hmm? Now let's run this test:
+
+```shell
+restafari --s jsonplaceholder.typicode.com  simple-test.rest
+```
+
+You should see:
+
+```
+Loading files
+[/tmp/simple.rest]
+-- Loading Test id: check-post test
+Checking test dependencies
+-- Test id: check-post request (jsonplaceholder.typicode.com,GET,/posts/1,)
+ ---> [200] {  "userId": 1,  "id": 1,  "title": "sunt aut facere repella...
+ [TEST] ['userId'] Comparing (Value $type Number) -> (From API)  the value must be Number (expect value) 
+ [PASS]  Validation passed
+```
+
+So, this is your first test. Congratulations! Now you can improve your tests by checking other elements and adding a description for that:
+
+```yaml
+tests:
+- id: check-post
+  desc: Check Post
+  path: /posts/1
+  expect:
+    http: 200
+    data:
+      userId:
+        $type: Number
+      id:
+        $type: Number
+      body:
+        $type: String
+      title:
+        $type: String
+```
+
+
+Run Restafari with --help for further details. We are working to delivary a better documentation as well. :)
