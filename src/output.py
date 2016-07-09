@@ -1,5 +1,6 @@
 from colorclass import Color
 import sys
+import os
 
 
 def printStep(desc):
@@ -72,4 +73,5 @@ def invalidExpectedDataKey(key, conf):
 
 
 def debug(msg):
-    print(Color("{yellow} [DEBUG] {/yellow} " + msg))
+    if "DEBUG" in os.environ:
+        print(Color("{yellow} [DEBUG] {/yellow} " + msg))
