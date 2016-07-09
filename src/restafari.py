@@ -43,9 +43,20 @@ def loadFile(filename):
         if id in db:
             output.printLoadError(filename, id, "Duplicated id")
         db[id] = test
-        output.printLoad(db[id]['desc'])
+
+        if 'desc' not in test or test['desc'] is None:
+            test['desc'] = "Test id: " + test['id']
+
+        if 'method' not in test or test['method'] is None:
+            test['method'] = 'GET'
+
+        if 'executable' not in test or test['executable'] is None:
+            test['executable'] = True
+
         if test['executable'] is True:
             db["#exec"].append(id)
+
+        output.printLoad(db[id]['desc'])
 
 
 def checkDeps():
@@ -160,6 +171,9 @@ def show_version():
     print('restafari ' + pkg_resources.get_distribution("restafari").version)
     sys.exit(0)
 
+
+def debug():
+    os.environ.pop("DEBUG", 1)
 
 if __name__ == "__main__":
     main()
