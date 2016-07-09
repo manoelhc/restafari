@@ -4,16 +4,14 @@
 import yaml
 import sys
 import os
-import io
 import argparse
 import os.path
 import subprocess
-import json
 import pkg_resources
 
-from anyjson import serialize
-
-from . import comparer, connection, output
+from restafari import comparer
+from restafari import connection
+from restafari import output
 
 conf = {
     'domain': '127.0.0.1',

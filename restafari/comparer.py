@@ -1,4 +1,4 @@
-from . import output
+from restafari import output
 import json
 
 

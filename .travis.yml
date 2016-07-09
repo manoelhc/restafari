@@ -3,16 +3,17 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
-  - "nightly" # currently points to 3.6-dev
-# command to install dependencies
-install:
-  - "pip install -r requirements.pip"
-  - "ci/build.sh"
+  - "nightly"
 
-# command to run tests
+services:
+  - couchdb
+
+install:
+  - "ci/build.sh"
+  - "ci/install.sh"
+
 script:
-  - "ci/local_install_test.sh"
-  - "ci/local_rest_test.sh"
+  - "ci/test.sh"
 
 after_success:
   - "codeclimate-test-reporter"

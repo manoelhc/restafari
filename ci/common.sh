@@ -3,10 +3,11 @@
 cd $(dirname ${0})/../
 _RESTAFARI_HOME=$(pwd)
 
-. ${_RESTAFARI_HOME}/env.sh
-
 TEST_SERVER="${_RESTAFARI_HOME}/test/server/restserver.py"
 TEST_SERVER_PORT=18080
+
+RESTAFARI_CMD="restafari"
+
 SUCCESS="/bin/bash ${_RESTAFARI_HOME}/test/scripts/runtest.sh SUCCESS"
 WARN="/bin/bash ${_RESTAFARI_HOME}/test/scripts/runtest.sh WARNING"
 FAILURE="/bin/bash ${_RESTAFARI_HOME}/test/scripts/runtest.sh FAILURE"
