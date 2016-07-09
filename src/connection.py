@@ -30,13 +30,16 @@ def getRequest(id, conf):
 
     data = res.read().decode("utf-8").strip()
     if len(data) > 60:
-        data = data[0:60] + '...'
+        output_data = data.replace("\n", '')
+        output_data = output_data[0:60] + '...'
+    else:
+        output_data = data
     output.printRequest(method,
                         conf['domain'],
                         fullpath,
                         params,
                         desc,
-                        data,
+                        output_data,
                         res.status)
 
     result = {}
