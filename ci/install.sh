@@ -4,7 +4,7 @@
 
 cd  ${_RESTAFARI_HOME}
 
-pip3 install --upgrade -r requirements.pip
+
 pip3 install -e .
 python3 setup.py install
 

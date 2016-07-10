@@ -7,6 +7,8 @@ cd ${_RESTAFARI_HOME}
 rm -rf dist
 rm -rf build
 
+pip3 install --upgrade -r requirements.pip
+
 # Syntax Checker
 EXIT=0
 for f in $(find ./restafari -name '*.py'); do
