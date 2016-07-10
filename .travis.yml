@@ -5,6 +5,7 @@ before_deploy:
 - ci/build.sh
 - ls
 deploy:
+  skip_cleanup: true
   provider: pypi
   user: manoelhc
   password:
