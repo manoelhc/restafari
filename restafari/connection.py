@@ -7,8 +7,15 @@ import http.client
 
 def getRequest(id, conf):
     db = conf['db']
-    headers = conf['headers']
     test = db[id]
+
+    if 'header' not in conf or conf['header'] is None:
+        conf['header'] = {}
+
+    headers = conf['header'].copy()
+    if 'header' in db[id]:
+        headers.update(db[id]['header'])
+
     method = test['method'].upper()
     fullpath = conf['path'] + test['path']
     desc = test['desc']
@@ -21,11 +28,15 @@ def getRequest(id, conf):
         output.validationError(conf)
         sys.exit(1)
 
+    if 'data' not in test or test['data'] is None:
+        test['data'] = {}
+
     if method == 'GET':
-        conn.request(method, fullpath)
+        conn.request(method, fullpath, None, headers)
     else:
-        params = urllib.parse.urlencode(test['data'])
+        params = json.dumps(test['data'])
         res = conn.request(method, fullpath, params, headers)
+
     res = conn.getresponse()
 
     data = res.read().decode("utf-8").strip()

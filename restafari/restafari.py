@@ -48,6 +48,10 @@ def loadFile(filename):
         if 'method' not in test or test['method'] is None:
             test['method'] = 'GET'
 
+        if 'header' not in test or test['header'] is None:
+            test['header'] = {}
+        test['header']['Content-type'] = 'application/json'
+
         if 'executable' not in test or test['executable'] is None:
             test['executable'] = True
 
@@ -82,12 +86,25 @@ def runTests():
     global conf
     db = conf['db']
     for id in db['#exec']:
-        req = connection.getRequest(id, conf)
-        res = comparer.compareResult(req, db[id]['expect'], conf)
-        if res is False:
-            output.validationError(conf)
-        else:
-            output.validationOk(conf)
+        if 'exec_before' in db[id]:
+            for bef in db[id]['exec_before']:
+                runTest(conf, bef, db)
+
+        runTest(conf, id, db)
+
+        if 'exec_after' in db[id]:
+            for aft in db[id]['exec_after']:
+                runTest(conf, aft, db)
+
+
+def runTest(conf, id, db):
+    req = connection.getRequest(id, conf)
+    res = comparer.compareResult(req, db[id]['expect'], conf)
+
+    if res is False:
+        output.validationError(conf)
+    else:
+        output.validationOk(conf)
 
 
 def main():

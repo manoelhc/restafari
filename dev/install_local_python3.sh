@@ -76,4 +76,3 @@ pip3 install --upgrade pip > /dev/null
 [[ ! -f "$(which python3)" ]] && echo "Python3 is not installed properly" && exit 1
 
 echo "PIP3 version: $(pip3 --version)"
-

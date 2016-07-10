@@ -2,6 +2,8 @@
 
 . $(dirname ${0})/common.sh
 
+[[ -f ${_RESTAFARI_HOME}/env.sh ]] && . ${_RESTAFARI_HOME}/env.sh
+
 cd ${_RESTAFARI_HOME}
 
 rm -rf dist

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd $(dirname ${0})/..
+dev/start_couchdb.sh
+ci/build.sh
+ci/install.sh
+ci/test.sh

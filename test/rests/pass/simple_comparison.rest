@@ -1,21 +1,133 @@
 tests:
-  - id : ping
-    weight : 20
-    executable : true
-    exec_before : []
-    exec_after : []
-    desc : "This is the ping"
-    format : "json"
-    path :  "/files/pass/simple_comparison"
-    method : GET
-    expect:
-      http: 200
-      data:
-        time :
-          $and:
-             $or :
-               $type : Number
-               $gt : 10000
-          $or :
-             $lt : 2000
-             $gt : 100
+- id : create-db
+  weight : 20
+  desc : "Create restafari-test database"
+  path :  "/restafari-test"
+  method : PUT
+  exec_before:
+    - ping
+  exec_after:
+    - create-db-2
+ #   - head-data
+    - get-db-info
+    - set-data
+    - get-data
+#    - copy-data
+    - delete-db
+    - delete-db-2
+  expect:
+    http: 201
+    data:
+      ok : true
+
+- id : create-db-2
+  weight : 20
+  desc : "Create restafari-test database 2"
+  path :  "/restafari-test2"
+  method : PUT
+  executable : false
+  expect:
+    http: 201
+    data:
+      ok : true
+
+- id : ping
+  weight : 20
+  desc : "Ping CouchDB Server"
+  path :  "/"
+  method : GET
+  executable : false
+  expect:
+    http: 200
+    data:
+      couchdb : "Welcome"
+
+
+- id : head-data
+  weight : 20
+  desc : "Head Data"
+  executable : false
+  path :  "/restafari-test/001"
+  method : POST
+  expect:
+    http: 201
+    data:
+      ok : true
+
+
+- id : set-data
+  weight : 20
+  desc : "Set Data"
+  data:
+    id: Restafari
+    name : Restafari
+    age : 23
+    designation : Tester
+  executable : false
+  path :  "/restafari-test"
+  method : POST
+  expect:
+    http: 201
+    data:
+      ok : true
+
+- id : get-db-info
+  weight : 20
+  desc : "Get db info"
+  path :  "/restafari-test"
+  method : GET
+  header:
+    Accept: application/json
+  executable : false
+  expect:
+    http: 200
+    data:
+      db_name : restafari-test
+      doc_count : 0
+      doc_del_count :
+
+- id : get-data
+  weight : 20
+  desc : "Get Data"
+  path :  "/restafari-test?name=Restafari"
+  method : GET
+  header:
+    Accept: application/json
+  executable : false
+  expect:
+    http: 200
+    data:
+      db_name : restafari-test
+
+- id : copy-data
+  weight : 20
+  header:
+    Destination : restafari-test2
+  desc : "Copy Data"
+  path :  "/restafari-test"
+  method : COPY
+  executable : false
+  expect:
+    http: 200
+
+- id : delete-db
+  weight : 20
+  desc : "Delete Database"
+  executable : false
+  path :  "/restafari-test"
+  method : DELETE
+  expect:
+    http: 200
+    data:
+      ok : true
+
+- id : delete-db-2
+  weight : 20
+  desc : "Delete Database 2"
+  executable : false
+  path :  "/restafari-test2"
+  method : DELETE
+  expect:
+    http: 200
+    data:
+      ok : true
