@@ -8,7 +8,7 @@ tests:
     - ping
   exec_after:
     - create-db-2
- #   - head-data
+#   - head-data
     - get-db-info
     - set-data
     - get-data

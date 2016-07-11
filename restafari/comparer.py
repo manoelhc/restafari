@@ -1,9 +1,15 @@
 from restafari import output
 import json
+import sys
 
 
 def compareResult(req, expect, conf):
     db = conf['db']
+
+    if 'data' not in req:
+        print("There is not data from URL.")
+        sys.exit(1)
+
     data = req['data']
     for key in expect.keys():
         # check value, if it has $, we are dealing with a compare

@@ -51,6 +51,7 @@ def validationError(conf):
     for msg in errors:
         print(Color("{red} [FAIL] {/red} Validation error: " + msg))
     conf['errors'] = []
+    conf['has_errors'] = True
 
 
 def validationOk(conf):

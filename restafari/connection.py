@@ -3,6 +3,7 @@ import json
 import sys
 import urllib.parse
 import http.client
+import socket
 
 
 def getRequest(id, conf):
@@ -31,13 +32,23 @@ def getRequest(id, conf):
     if 'data' not in test or test['data'] is None:
         test['data'] = {}
 
-    if method == 'GET':
-        conn.request(method, fullpath, None, headers)
-    else:
-        params = json.dumps(test['data'])
-        res = conn.request(method, fullpath, params, headers)
+    res = None
+    try:
+        if method == 'GET':
+            res = conn.request(method, fullpath, None, headers)
+        else:
+            params = json.dumps(test['data'])
+            res = conn.request(method, fullpath, params, headers)
+    except socket.gaierror as exc:
+        print("The hostname/port is reachable. Please check it before executing it again: "+ str(exc))
+        sys.exit(1)
 
-    res = conn.getresponse()
+    try:
+        res = conn.getresponse()
+    except http.client.HTTPException as exc:
+        print("The hostname/port is reachable. Please check it before executing it again: "+ str(exc))
+        sys.exit(1)
+
 
     data = res.read().decode("utf-8").strip()
     if len(data) > 60:
@@ -45,6 +56,7 @@ def getRequest(id, conf):
         output_data = output_data[0:60] + '...'
     else:
         output_data = data
+
     output.printRequest(method,
                         conf['domain'],
                         fullpath,
