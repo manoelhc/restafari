@@ -1,8 +1,11 @@
-# restafari 
+# restafari
 
-[![Build Status](https://travis-ci.org/manoelhc/restafari.svg?branch=master)](https://travis-ci.org/manoelhc/restafari) [![Python Support](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-green.svg)]() [![Coverage Status](https://coveralls.io/repos/github/manoelhc/restafari/badge.svg?branch=master)](https://coveralls.io/github/manoelhc/restafari?branch=master) [![Issue Count](https://codeclimate.com/github/manoelhc/restafari/badges/issue_count.svg)](https://codeclimate.com/github/manoelhc/restafari) [![Code Climate](https://codeclimate.com/github/manoelhc/restafari/badges/gpa.svg)](https://codeclimate.com/github/manoelhc/restafari)
+[![PyPI version](https://badge.fury.io/py/restafari.svg)](https://badge.fury.io/py/restafari)
+[![Build Status](https://travis-ci.org/manoelhc/restafari.svg?branch=master)](https://travis-ci.org/manoelhc/restafari) [![Python Support](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-green.svg)]()
+[![Coverage Status](https://coveralls.io/repos/github/manoelhc/restafari/badge.svg?branch=master)](https://coveralls.io/github/manoelhc/restafari?branch=master)
+[![Issue Count](https://codeclimate.com/github/manoelhc/restafari/badges/issue_count.svg)](https://codeclimate.com/github/manoelhc/restafari)
+[![Code Climate](https://codeclimate.com/github/manoelhc/restafari/badges/gpa.svg)](https://codeclimate.com/github/manoelhc/restafari)
 [![Test Coverage](https://codeclimate.com/github/manoelhc/restafari/badges/coverage.svg)](https://codeclimate.com/github/manoelhc/restafari/coverage) [![codecov](https://codecov.io/gh/manoelhc/restafari/branch/master/graph/badge.svg)](https://codecov.io/gh/manoelhc/restafari)
-
 
 Restafari is a simple REST test tool. It provides a simple framework to describe and run tests and validations around your REST api.
 
@@ -16,18 +19,18 @@ Restafari is a simple REST test tool. It provides a simple framework to describe
 
 ## Getting Started (just 2 minutes)
 
-To get yourself into Restafari, this is a 2-minutes getting started. First you need a machine with Python3 and PIP3 properly installed. You have to install Restafari as root user. 
- 
+To get yourself into Restafari, this is a 2-minutes getting started. First you need a machine with Python3 and PIP3 properly installed. You have to install Restafari as root user.
+
 ```bash
  # On Ubuntu
  sudo su - root
- 
+
  # On RHEL/CentOS
  su - root
 ```
- 
+
 Now, let's install Restafari from PYPI (the Python Package Index):
-  
+
 ```bash
 pip3 install restafari
 ```
@@ -44,11 +47,11 @@ You should see something like:
 restafari 0.1.4
 ```
 
-If your installation failed, try to install again. If it does not work, please open an ticket telling what happened. Restafari is a new product, not stable and it could happen anytime. 
+If your installation failed, try to install again. If it does not work, please open an ticket telling what happened. Restafari is a new product, not stable and it could happen anytime.
 
 All right, so if you Restafari installation is done, let's write our first test. For this test we will take a public API from http://jsonplaceholder.typicode.com/:
 The service is http://jsonplaceholder.typicode.com/posts/1 which returns something similar to this:
- 
+
 ```json
 {
   "userId": 1,
@@ -86,7 +89,7 @@ Loading files
 Checking test dependencies
 -- Test id: check-post request (jsonplaceholder.typicode.com,GET,/posts/1,)
  ---> [200] {  "userId": 1,  "id": 1,  "title": "sunt aut facere repella...
- [TEST] ['userId'] Comparing (Value $type Number) -> (From API)  the value must be Number (expect value) 
+ [TEST] ['userId'] Comparing (Value $type Number) -> (From API)  the value must be Number (expect value)
  [PASS]  Validation passed
 ```
 
