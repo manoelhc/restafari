@@ -114,4 +114,4 @@ tests:
 ```
 
 
-Run Restafari with --help for further details. We are working to delivary a better documentation as well. :)
+Run Restafari with --help for further details. We are working to deliver a better documentation as well. :)
