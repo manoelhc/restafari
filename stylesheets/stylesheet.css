@@ -18,21 +18,21 @@ a {
 .btn {
   display: inline-block;
   margin-bottom: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: #000;
+  background-color: #fff;
+  border-color: #FF9900;
   border-style: solid;
-  border-width: 1px;
+  border-width: 3px;
   border-radius: 0.3rem;
   transition: color 0.2s, background-color 0.2s, border-color 0.2s; }
   .btn + .btn {
     margin-left: 1rem; }
 
 .btn:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: #000;
   text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3); }
+  background-color: rgba(255, 255, 255,1);
+  border-color: rgba(255, 255, 255,1); }
 
 @media screen and (min-width: 64em) {
   .btn {
@@ -54,10 +54,14 @@ a {
       margin-left: 0; } }
 
 .page-header {
-  color: #fff;
   text-align: center;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #a1be95, #f0f0f0); }
+  background:
+  linear-gradient(45deg, #eee 45px, transparent 45px)64px 64px,
+  linear-gradient(45deg, #eee 45px, transparent 45px,transparent 91px, #ddd 91px, #ddd 135px, transparent 135px),
+  linear-gradient(-45deg, #eee 23px, transparent 23px, transparent 68px,#eee 68px,#eee 113px,transparent 113px,transparent 158px,#eee 158px);
+  background-color:#ddd;
+  background-size: 128px 128px;
+}
 
 @media screen and (min-width: 64em) {
   .page-header {
@@ -73,7 +77,9 @@ a {
 
 .project-name {
   margin-top: 0;
+  color: red;
   margin-bottom: 0.1rem; }
+
 
 @media screen and (min-width: 64em) {
   .project-name {
@@ -88,6 +94,7 @@ a {
     font-size: 1.75rem; } }
 
 .project-tagline {
+  color: #000;
   margin-bottom: 2rem;
   font-weight: normal;
   opacity: 0.7; }
