@@ -7,7 +7,7 @@ def compareResult(req, expect, conf):
     db = conf['db']
 
     if 'data' not in req:
-        print("There is not data from URL.")
+        print("There is not expect.data from URL.")
         sys.exit(1)
 
     data = req['data']

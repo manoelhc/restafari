@@ -1,0 +1,7 @@
+tests:
+- id : mytest
+  desc : "This is my test"
+  path :  "/url-path"
+  method : GET
+  expect:
+    http: 200

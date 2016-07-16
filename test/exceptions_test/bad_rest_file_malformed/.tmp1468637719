@@ -1,0 +1,20 @@
+[32mLoading files[39m
+[file.rest]
+The file "file.rest" is a malformed YAML. Please fix it before executing it again:
+
+while parsing a block mapping
+  in "file.rest", line 2, column 3
+expected <block end>, but found '<block mapping start>'
+  in "file.rest", line 8, column 4
+-------------------
+Here is a simple sample of a valid rest file:
+tests:
+- id : mytest
+  desc : "This is my test"
+  path :  "/url-path"
+  method : GET
+  expect:
+    http: 200
+    data:
+      ok : true
+

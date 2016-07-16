@@ -40,15 +40,16 @@ def getRequest(id, conf):
             params = json.dumps(test['data'])
             res = conn.request(method, fullpath, params, headers)
     except socket.gaierror as exc:
-        print("The hostname/port is reachable. Please check it before executing it again: "+ str(exc))
+        print("The hostname/port is reachable. Please check it before " +
+              "executing it again: " + str(exc))
         sys.exit(1)
 
     try:
         res = conn.getresponse()
     except http.client.HTTPException as exc:
-        print("The hostname/port is reachable. Please check it before executing it again: "+ str(exc))
+        print("The hostname/port is reachable. Please check it before " +
+              "executing it again: " + str(exc))
         sys.exit(1)
-
 
     data = res.read().decode("utf-8").strip()
     if len(data) > 60:

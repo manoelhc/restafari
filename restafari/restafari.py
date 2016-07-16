@@ -41,7 +41,8 @@ def loadFile(filename):
       obj = yaml.load(stream)
     except yaml.YAMLError as exc:
       print("The file \"" + filename +
-        "\" is a malformed YAML. Please fix it before executing it again:\n\n" + str(exc))
+            "\" is a malformed YAML. Please fix it before " +
+            "executing it again:\n\n" + str(exc))
       print('-------------------')
       print('Here is a simple sample of a valid rest file:')
       valid_sample()
@@ -199,16 +200,17 @@ def show_version():
     print('restafari ' + pkg_resources.get_distribution("restafari").version)
     sys.exit(0)
 
+
 def valid_sample():
     print("tests:\n" +
-    "- id : mytest\n" +
-    "  desc : \"This is my test\"\n" +
-    "  path :  \"/url-path\"\n" +
-    "  method : GET\n" +
-    "  expect:\n" +
-    "    http: 200\n" +
-    "    data:\n" +
-    "      ok : true\n")
+          "- id : mytest\n" +
+          "  desc : \"This is my test\"\n" +
+          "  path :  \"/url-path\"\n" +
+          "  method : GET\n" +
+          "  expect:\n" +
+          "    http: 200\n" +
+          "    data:\n" +
+          "      ok : true\n")
 
 
 def debug():
