@@ -62,7 +62,7 @@ def loadFile(filename):
 
         if 'header' not in test or test['header'] is None:
             test['header'] = {}
-        test['header']['Content-type'] = 'application/json'
+            test['header']['Content-type'] = 'application/json'
 
         if 'executable' not in test or test['executable'] is None:
             test['executable'] = True

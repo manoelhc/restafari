@@ -8,11 +8,10 @@ tests:
     - ping
   exec_after:
     - create-db-2
-#   - head-data
     - get-db-info
     - set-data
     - get-data
-#    - copy-data
+    - head-data
     - delete-db
     - delete-db-2
   expect:
@@ -47,12 +46,10 @@ tests:
   weight : 20
   desc : "Head Data"
   executable : false
-  path :  "/restafari-test/001"
-  method : POST
+  path :  "/restafari-test"
+  method : HEAD
   expect:
-    http: 201
-    data:
-      ok : true
+    http: 200
 
 
 - id : set-data
@@ -98,17 +95,6 @@ tests:
     http: 200
     data:
       db_name : restafari-test
-
-- id : copy-data
-  weight : 20
-  header:
-    Destination : restafari-test2
-  desc : "Copy Data"
-  path :  "/restafari-test"
-  method : COPY
-  executable : false
-  expect:
-    http: 200
 
 - id : delete-db
   weight : 20

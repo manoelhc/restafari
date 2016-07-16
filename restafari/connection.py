@@ -4,6 +4,7 @@ import sys
 import urllib.parse
 import http.client
 import socket
+import os
 
 
 def getRequest(id, conf):
@@ -54,7 +55,8 @@ def getRequest(id, conf):
     data = res.read().decode("utf-8").strip()
     if len(data) > 60:
         output_data = data.replace("\n", '')
-        output_data = output_data[0:60] + '...'
+        if 'DEBUG' in os.environ and os.environ['DEBUG'] != '1':
+            output_data = output_data[0:60] + '...'
     else:
         output_data = data
 
@@ -71,9 +73,15 @@ def getRequest(id, conf):
     result['header'] = res.getheaders()
 
     try:
-        result['data'] = json.loads(data)
+        if len(data) > 0:
+            result['data'] = json.loads(data)
+        else:
+            result['data'] = {}
+
     except ValueError:
-        print("Invalid JSON outout")
+        print("Invalid JSON outout: ")
+        if 'DEBUG' in os.environ and os.environ['DEBUG'] != '1':
+            print(data)
     # finally:
     #   result['data'] = None
 
