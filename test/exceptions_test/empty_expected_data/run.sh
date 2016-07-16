@@ -12,5 +12,7 @@ echo "-- TESTING EMPTY EXPECTED DATA --"
 restafari -s localhost -p ${TEST_SERVER_PORT} file.rest > ${_TMP}
 cat ${_TMP}
 [[ -n "$(grep Trackback $_TMP)" ]] && rm -f ${_TMP} && exit 1
+[[ -n "$(grep expect.data $_TMP)" ]] && rm -f ${_TMP} && exit 0
 
 rm -f ${_TMP}
+exit 1
