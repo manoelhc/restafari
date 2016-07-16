@@ -40,6 +40,10 @@ def getRequest(id, conf):
         else:
             params = json.dumps(test['data'])
             res = conn.request(method, fullpath, params, headers)
+    except ConnectionRefusedError as exc:
+        print("The hostname/port is reachable. Please check it before " +
+              "executing it again: " + str(exc))
+        sys.exit(1)
     except socket.gaierror as exc:
         print("The hostname/port is reachable. Please check it before " +
               "executing it again: " + str(exc))
