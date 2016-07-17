@@ -3,9 +3,11 @@ PyYAML
 ColorClass
 cherrypy
 pep8
+codecov
 codeclimate-test-reporter
 coverage
 python-coveralls
 twine
 setuptools
 pip
+pystache

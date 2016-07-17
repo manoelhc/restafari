@@ -24,9 +24,15 @@ conf = {
     'errors': []
 }
 
+api_data = {
+    '@req' : {},
+    '@res' : {}
+}
 
 def loadFile(filename):
     global conf
+    global api_data
+
     db = conf['db']
     if not os.path.exists(filename):
         filename = os.getcwd() + '/' + filename
@@ -70,7 +76,7 @@ def loadFile(filename):
         if test['executable'] is True:
             db["#exec"].append(id)
 
-        output.printLoad(db[id]['desc'])
+        print(output.load_color.format(db[id]['desc']))
 
 
 def checkDeps():
@@ -110,7 +116,8 @@ def runTests():
 
 
 def runTest(conf, id, db):
-    req = connection.getRequest(id, conf)
+    global api_data
+    req = connection.getRequest(id, conf, api_data)
     res = comparer.compareResult(req, db[id]['expect'], conf)
 
     if res is False:
@@ -173,7 +180,8 @@ def main():
     if args.port:
         conf['port'] = args.port
 
-    output.printStep("Loading files")
+    print(output.step_color.format("Loading files"))
+
     for file in args.files:
         loadFile(file)
     if args.exec_before:
@@ -183,7 +191,8 @@ def main():
             print('--exec-before command returned: ' + str(res))
             sys.exit(1)
 
-    output.printStep("Checking test dependencies")
+    print(output.step_color.format("Checking test dependencies"))
+
     checkDeps()
     runTests()
     if args.exec_success:

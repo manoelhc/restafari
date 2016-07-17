@@ -9,7 +9,7 @@ cd ${_RESTAFARI_HOME}
 rm -rf dist
 rm -rf build
 
-pip3 install --upgrade -r requirements.pip
+pip3 install -r requirements.pip
 
 # Syntax Checker
 EXIT=0

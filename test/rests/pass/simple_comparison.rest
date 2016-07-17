@@ -1,21 +1,56 @@
+# This is a simple Restafari test file (.rest)
+# Basically it's a YAML format which describes the information and
+# the logic to test an API.
+
+# Every test as a main "tests" root
 tests:
+
+# This is the first and the main test.
+# Every test must have a test id.
 - id : create-db
-  weight : 20
+
+# The description is optional, but we recommend to use it in order to
+# show a better test output
   desc : "Create restafari-test database"
+
+# Every test must have a path. This path will be used with the hostname
+# passed by Restafari's server/hostname argument
   path :  "/restafari-test"
+
+# If we need another method than GET, you must add the method property.
   method : PUT
+
+# This property is not mandatory, but you can organize your test to be executed
+# in the correct time. This is the list of tasks you want to execute before
+# this test. It's good to test something that needs another request
+# to complete, like an authentication step before adding some registry.
   exec_before:
     - ping
+
+# This property is not mandatory, but following the same logic of
+# the property above. This is the list of tasks to be executed after this
+# test.
   exec_after:
     - create-db-2
     - get-db-info
     - set-data
     - get-data
+    - set-data-2
+    - get-data-2
     - head-data
     - delete-db
     - delete-db-2
+
+# The expect property is the what is result this test expect to be considered
+# a valid API test.
   expect:
+
+# Inside expect, there are 2 properties: http and data.
+# The HTTP status you this test expects.
     http: 201
+
+# Data property holds the properties you are expecting to test.
+# In the example below, this test expects something like: { "ok": true }
     data:
       ok : true
 
@@ -95,6 +130,36 @@ tests:
     http: 200
     data:
       db_name : restafari-test
+
+- id : set-data-2
+  weight : 20
+  desc : "Set Data with Tokens"
+  data:
+    id: Restafari_{{@res.get-data.db_name}}
+    name : Restafari {{@res.ping.uuid}}
+    age : 23
+    designation : Tester
+  executable : false
+  path :  "/restafari-test"
+  method : POST
+  expect:
+    http: 201
+    data:
+      ok : true
+
+- id : get-data-2
+  weight : 20
+  desc : "Get Data with tokens"
+  path :  "/restafari-test?name={{@res.set-data-2.id}}"
+  method : GET
+  header:
+    Accept: application/json
+  executable : false
+  expect:
+    http: 200
+    data:
+      db_name : restafari-test
+
 
 - id : delete-db
   weight : 20

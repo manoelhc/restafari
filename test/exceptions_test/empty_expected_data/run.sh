@@ -9,7 +9,7 @@ _TMP="${_SCRIPT_DIR}/.tmp$(date +%s)"
 cd ${_SCRIPT_DIR}
 
 echo "-- TESTING EMPTY EXPECTED DATA --"
-restafari -s localhost -p ${TEST_SERVER_PORT} file.rest > ${_TMP}
+restafari -s localhost --port ${TEST_SERVER_PORT} file.rest > ${_TMP}
 cat ${_TMP}
 [[ -n "$(grep Trackback $_TMP)" ]] && rm -f ${_TMP} && exit 1
 
