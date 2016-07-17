@@ -2,20 +2,24 @@ from colorclass import Color
 import sys
 import os
 
-step_color = Color("{green}#### Starting{/green} \"{white}{0}{/white}\" {green}test{/green}")
+step_color = Color("{green}#### Starting{/green} " +
+                   "\"{white}{0}{/white}\" {green}test{/green}")
 load_color = Color("-- Loading {green}{0}" +
                    "{/green} {white}test{/white}")
 
 test_sep_color = Color("{green}{0}{/green}")
 
-token_color = Color("{white} ==== Avaliable tokens after this test:{/white}\n {blue}{0}{/blue}")
+token_color = Color("{white} ==== Avaliable tokens " +
+                    "after this test:{/white}\n {blue}{0}{/blue}")
 
 http_ok_color = Color("HTTP Status code:{green} [{0}] - OK{/green}")
 http_notbad_color = Color("HTTP Status code:{yellow} [{0}]{/yellow}")
 http_error_color = Color("HTTP Status code:{red} [{0}]{/red}")
 http_request_color = Color("-- {white}{0} request ({1},{2},{3}){/white}" +
-                           "    {white}\n ---> Request data: {magenta}{4}{/magenta}" +
-                           "    {white}\n <--- Response data: {cyan}{5}{/cyan}")
+                           "    {white}\n ---> Request " +
+                           "data: {magenta}{4}{/magenta}" +
+                           "    {white}\n <--- Response " +
+                           "data: {cyan}{5}{/cyan}")
 load_error_color = Color("-- {red}Error on loading{/red} {white}{0}" +
                          "::id[{1}]: {2}{/white}")
 
@@ -41,7 +45,7 @@ debug_color = Color("{yellow} [DEBUG] {/yellow} {0}")
 
 
 def printRequest(desc, domain, path, method, sent_data,
-                     received_data, http_status_num):
+                 received_data, http_status_num):
     if http_status_num == 200:
         httpno = print(http_ok_color.format(str(http_status_num)))
     elif http_status_num > 200 and http_status_num < 400:

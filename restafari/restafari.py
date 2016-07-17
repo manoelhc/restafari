@@ -25,9 +25,10 @@ conf = {
 }
 
 api_data = {
-    '@req' : {},
-    '@res' : {}
+    '@req': {},
+    '@res': {}
 }
+
 
 def loadFile(filename):
     global conf

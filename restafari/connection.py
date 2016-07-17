@@ -7,6 +7,7 @@ import socket
 import os
 import pystache
 
+
 def getRequest(id, conf, api_data):
 
     db = conf['db']
@@ -81,7 +82,6 @@ def getRequest(id, conf, api_data):
         else:
             received_data = data
 
-
     print("\n" + output.test_sep_color.format("#" * 80))
     print(output.step_color.format(id))
     print(output.test_sep_color.format("#" * 80))
@@ -115,6 +115,8 @@ def getRequest(id, conf, api_data):
     # finally:
     #   result['data'] = None
 
-    print(output.token_color.format(json.dumps(api_data, sort_keys=True, indent=4)))
+    print(output.token_color.format(json.dumps(api_data,
+                                               sort_keys=True,
+                                               indent=4)))
 
     return result
