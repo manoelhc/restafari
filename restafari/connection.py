@@ -103,7 +103,7 @@ def getRequest(id, conf, api_data):
     result = {}
     result['status'] = res.status
     result['header'] = res.getheaders()
-    api_data['@hdr'][id] =
+    api_data['@hdr'][id] = {}
     for header in result['header']:
         db[id]['header'][header[0]] = header[1]
         api_data['@hdr'][id][header[0]] = header[1]
