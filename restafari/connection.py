@@ -19,6 +19,7 @@ def getRequest(id, conf, api_data):
     if 'header' not in conf or conf['header'] is None:
         conf['header'] = {}
 
+    api_data['@hsent'][id] = {}
     headers = conf['header'].copy()
     if 'header' in db[id]:
         headers.update(db[id]['header'])
@@ -65,7 +66,7 @@ def getRequest(id, conf, api_data):
         print("The hostname/port is reachable. Please check it before " +
               "executing it again: " + str(exc))
         sys.exit(1)
-
+    api_data['@hsent'][id] = headers
     try:
         res = conn.getresponse()
 
@@ -103,10 +104,11 @@ def getRequest(id, conf, api_data):
     result = {}
     result['status'] = res.status
     result['header'] = res.getheaders()
-    api_data['@hdr'][id] = {}
+    api_data['@hgot'][id] = {}
     for header in result['header']:
-        db[id]['header'][header[0]] = header[1]
-        api_data['@hdr'][id][header[0]] = header[1]
+        if header[0].lower() == 'set-cookie':
+            db[id]['header']["Cookie"] = header[1]
+        api_data['@hget'][id][header[0]] = header[1]
 
     try:
         if len(data) > 0:
