@@ -104,11 +104,11 @@ def getRequest(id, conf, api_data):
     result = {}
     result['status'] = res.status
     result['header'] = res.getheaders()
-    api_data[id]['@hgot'] = {}
+    api_data['@hgot'][id] = {}
     for header in result['header']:
         if header[0].lower() == 'set-cookie':
             conf['header']["Cookie"] = header[1]
-        api_data['@hget'][id][header[0]] = header[1]
+        api_data['@hgot'][id][header[0]] = header[1]
 
     try:
         if len(data) > 0:
