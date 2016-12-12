@@ -103,11 +103,10 @@ def getRequest(id, conf, api_data):
     result = {}
     result['status'] = res.status
     result['header'] = res.getheaders()
-    api_data['@hdr'][id] = result['header']
 
     for header in result['header']:
-        print(header)
-        # db[id]['header'][hname] = hvalue
+        db[id]['header'][header[0]] = header[1]
+        api_data['@hdr'][id] = "{}:{}".format(header[0], header[1])
 
     try:
         if len(data) > 0:
