@@ -104,7 +104,12 @@ def getRequest(id, conf, api_data):
     result['status'] = res.status
     result['header'] = res.getheaders()
     api_data['@hdr'][id] = result['header']
-    db[id]['header'] += result['header']
+
+    for header in result['header']:
+        hname = header.split(":")[0].strip()
+        first = header.find(":") + 1
+        hvalue = header[first:]
+        db[id]['header'][hname] = hvalue
 
     try:
         if len(data) > 0:
