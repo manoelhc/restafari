@@ -107,7 +107,7 @@ def getRequest(id, conf, api_data):
 
     for header in result['header']:
         print(header)
-        #db[id]['header'][hname] = hvalue
+        # db[id]['header'][hname] = hvalue
 
     try:
         if len(data) > 0:
