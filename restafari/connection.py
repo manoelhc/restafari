@@ -42,6 +42,7 @@ def getRequest(id, conf, api_data):
         test['data'] = {}
 
     api_data['@req'][id] = test['data']
+    api_data['@hdr'][id] = headers
 
     res = None
     params = ""

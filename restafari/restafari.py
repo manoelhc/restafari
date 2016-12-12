@@ -26,7 +26,8 @@ conf = {
 
 api_data = {
     '@req': {},
-    '@res': {}
+    '@res': {},
+    '@hdr': {}
 }
 
 
