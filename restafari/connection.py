@@ -42,10 +42,10 @@ def getRequest(id, conf, api_data):
         test['data'] = {}
 
     api_data['@req'][id] = test['data']
-    api_data['@hdr'][id] = headers
 
     res = None
     params = ""
+
     try:
         if method == 'GET':
             res = conn.request(method, fullpath, None, headers)
@@ -56,6 +56,7 @@ def getRequest(id, conf, api_data):
                 params = json.dumps(test['data'])
             params = pystache.render(params, api_data)
             res = conn.request(method, fullpath, params, headers)
+
     except ConnectionRefusedError as exc:
         print("The hostname/port is reachable. Please check it before " +
               "executing it again: " + str(exc))
@@ -67,6 +68,7 @@ def getRequest(id, conf, api_data):
 
     try:
         res = conn.getresponse()
+
     except http.client.HTTPException as exc:
         print("The hostname/port is reachable. Please check it before " +
               "executing it again: " + str(exc))
@@ -101,6 +103,8 @@ def getRequest(id, conf, api_data):
     result = {}
     result['status'] = res.status
     result['header'] = res.getheaders()
+    api_data['@hdr'][id] = result['header']
+    db[id]['header'] += result['header']
 
     try:
         if len(data) > 0:
