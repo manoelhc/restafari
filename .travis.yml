@@ -9,7 +9,7 @@ deploy:
   provider: pypi
   user: manoelhc
   password:
-    secure: eJFeZt1kvOIA2thfs2hvh1XsZVuZ3Hu7n5enT6yJHtUzFxmsMC+2Noxg8LagLMKlyRngoekdyjp/nJYbdEAJq2wx+Pe+83knsLZjZOeGVfV0F41XNMqm3hO8zXRIANnG/LDm6JcgqnN1/ktFLwp5pj0PkBFQm5NXua9JiIlUoASpEIzWsBN1ML+QHtMpPL+alC6+YHWx/WVSDId73jiFEpI1Z8jFxRevTsbFFlatSje9ExNlKpLQ9pRek3HZVJ+cKpYrpwzUjYOh5ZNZUb76LuVX74jSUJMQ/zkOohXNXaYd/p3WO77RKUxNv1kk+BDucPkY7PpSO+Vf/a/NyxIioPoGEyGRIpC04nlxsUaJKll4+E5ekpDeC13WOlt5x4UUJp/Tg3KbikJGVcrWX/lMGic72mNbnBdXGxgUcUZPRSqlrHRXtP/wITgNVXx2YdudnQvuxSAcX2XYb+m235GipqKaMoeoEVYFSfwtPqagTkaUHP+EW+G+o7NLMIqq3FI+CmwOUaNsinQfNwDom+bAP6QytiEntNMJeqUonH5jXPUID6T62wmLvlgeDkUSAeV4z4SIKDnUbVvHk6bM38gg3hgs2Z5JrTt2NlOBSy+hVva1Sjrhib+A098DYl//UZ4vGWDjl7wxHCrDt+0CECcSeOLM7HmG/9XkDi5yco8e15g=
+    secure: 
   on:
     distributions: sdist bdist_wheel
     repo: manoelhc/restafari
